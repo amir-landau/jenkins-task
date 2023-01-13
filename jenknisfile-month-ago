@@ -30,3 +30,29 @@ pipeline {
             stash name: "terraform-plan", includes: "tf_plan"}
     }
 }
+
+
+job('example-job') {
+    steps {
+        // Add ARG instructions and modify default.conf in one command
+        git branch: 'master',
+        credentialsId: 'my-credentials',
+        url: 'https://github.com/amir-landau/jenkins-task.git'
+
+        bat '''
+            echo "ARG APP_HOST" 
+            \n 
+            "ARG APP_PORT" \n
+            RUN echo \"server { \n \
+                listen 80; \n \
+                location / { \n \
+                    proxy_set_header X-Real-IP \$remote_addr; \n \
+                    proxy_pass http://\$APP_HOST:\$APP_PORT; \n \
+                } \n \
+            }\" > /etc/nginx/conf.d/default.conf" > nginx/Dockerfile
+        '''
+
+        // build the Nginx container
+        bat 'docker build -t 1372022/my-nginx-image -f nginx/Dockerfile .'
+    }
+}
