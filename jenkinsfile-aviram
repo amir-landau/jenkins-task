@@ -1,0 +1,30 @@
+pipelineJob('example-pipeline') {
+    definition {
+        cps {
+            script("""
+                pipeline {
+                    agent any
+                    stages {
+                        stage('Checkout') {
+                            steps {
+                                git url: 'https://github.com/amir-landau/jenkins-task.git', branch: 'master'
+                            }
+                        }
+                        stage('Build') {
+                            steps {
+                                sh 'docker build -t 1372022/devops-home-assignment:latest .'
+                            }
+                        }
+                        stage('Push') {
+                            steps {
+                                sh 'docker login -u 1372022 -p %DOCKERHUB_CREDENTIALS_PSW%'
+                                sh 'docker push 1372022/devops-home-assignment:latest'
+                            }
+                        }
+                    }
+                }
+            """)
+            sandbox()
+        }
+    }
+}
