@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: 1372022/devops-home-assignment
+    image: test9
     ports:
       - "5000"
     volumes:
