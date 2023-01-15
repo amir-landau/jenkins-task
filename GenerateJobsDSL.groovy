@@ -13,7 +13,7 @@ job('nginx') {
     }
     steps {
         shell(readFileFromWorkspace('nginx/edit-nginx.sh'))
-	}
+        
         dockerBuildAndPublish {
             repositoryName('1372022/nginx')
             tag('${BUILD_TIMESTAMP}-${GIT_REVISION,length=7}')
@@ -22,7 +22,9 @@ job('nginx') {
             forcePull(false)
             createFingerprints(false)
             skipDecorate()
-        }        
+        }  
+	}
+      
 }
 
 
