@@ -12,14 +12,12 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'docker build -t 1372022/app:$BUILD_NUMBER -f app/dockerfile .'
-                sh 'docker build -t 1372022/app: -f app/dockerfile .'
             }
         }
         stage('Push') {
             steps {
 			sh 'echo "$DOCKERHUB_CREDENTIALS_PSW" | docker login --username $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            sh 'docker build -t 1372022/app:$BUILD_NUMBER -f app/dockerfile .'
-            sh 'docker push 1372022/app:'
+            sh 'docker push 1372022/app:$BUILD_NUMBER'
             }
         }
     }
