@@ -19,6 +19,7 @@ job('nginx') {
             registryCredentials('1372022-dockerhub')
             buildContext('./nginx')
             forceTag(false)
+            skipDecorate(true)
         }  
 	}
       
