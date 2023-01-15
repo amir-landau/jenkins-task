@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/amir-landau/jenkins-task.git', branch: 'master'
+                git url: 'https://github.com/amir-landau/jenkins-task.git', branch: 'main'
             }
         }
         stage('Build') {
@@ -17,7 +17,7 @@ pipeline {
         stage('Push') {
             steps {
 			sh 'echo "\$DOCKERHUB_CREDENTIALS_PSW" | docker login --username \$DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push 1372022/app:latest'
+            sh 'docker push 1372022/app:latest'
             }
         }
     }
