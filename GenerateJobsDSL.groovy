@@ -64,6 +64,7 @@ job('containers-up') {
         github('amir-landau/jenkins-task', 'master')
     }
     steps {
+        shell('echo Hello World!')
         shell(readFileFromWorkspace('checkhealth.sh'))
     }
 }
