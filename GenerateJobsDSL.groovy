@@ -1,33 +1,7 @@
 pipelineJob('example-pipeline') {
     definition {
         cps {
-            script("""
-                pipeline {
-                    agent any
-                    environment {
-                       DOCKERHUB_CREDENTIALS = credentials("1372022-dockerhub")
-                    }
-                    stages {
-                        stage('Checkout') {
-                            steps {
-                                git url: 'https://github.com/amir-landau/jenkins-task.git', branch: 'master'
-                            }
-                        }
-                        stage('Build') {
-                            steps {
-                                sh 'docker build -t 1372022/app:latest -f app/dockerfile .'
-                            }
-                        }
-                        stage('Push') {
-                            steps {
-								sh 'echo "\$DOCKERHUB_CREDENTIALS_PSW" | docker login --username \$DOCKERHUB_CREDENTIALS_USR --password-stdin'
-    							#sh 'docker login -u \$DOCKERHUB_CREDENTIALS_USR -p \$DOCKERHUB_CREDENTIALS_PSW'
-                                sh 'docker push 1372022/app:latest'
-                            }
-                        }
-                    }
-                }
-            """)
+            script(readFileFromWorkspace('app/build-app-pipeline.groovy'))
             sandbox()
         }
     }
