@@ -19,9 +19,6 @@ job('nginx') {
             tag('${BUILD_TIMESTAMP}-${GIT_REVISION,length=7}')
             registryCredentials('1372022-dockerhub')
             buildContext('./nginx')
-            forcePull(false)
-            createFingerprints(false)
-            skipDecorate()
         }  
 	}
       
