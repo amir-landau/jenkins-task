@@ -1,21 +1,22 @@
-pipelineJob('example-pipeline') {
+pipelineJob('App Pipeline') {
     definition {
         cps {
-            script(readFileFromWorkspace('app/build-app-pipeline.groovy'))
+            script(readFileFromWorkspace('app/AppPipeline.groovy'))
             sandbox()
         }
     }
 }
 
-job('nginx') {
+job('Nginx Job') {
     scm {
         github('amir-landau/jenkins-task', 'main')
     }
     steps {
-        shell(readFileFromWorkspace('nginx/edit-nginx.sh'))
+        shell(readFileFromWorkspace('nginx/ModifyNginx.sh'))
         
         dockerBuildAndPublish {
             repositoryName('1372022/nginx')
+            tag('$BUILD_NUMBER')
             registryCredentials('1372022-dockerhub')
             buildContext('./nginx')
             forceTag(false)
@@ -26,11 +27,11 @@ job('nginx') {
 }
 
 
-job('containers-up') {
+job('Deploy And Validate') {
     scm {
         github('amir-landau/jenkins-task', 'master')
     }
     steps {
-        shell(readFileFromWorkspace('RunContaienrs.sh'))
+        shell(readFileFromWorkspace('DeployAndValidate.sh'))
     }
 }
