@@ -64,7 +64,6 @@ job('containers-up') {
         github('amir-landau/jenkins-task', 'master')
     }
     steps {
-                
-        shell('docker-compose up -d')
-        readFileFromWorkspace('checkhealth.sh')	}
+        shell(readFileFromWorkspace('checkhealth.sh'))
+    }
 }
