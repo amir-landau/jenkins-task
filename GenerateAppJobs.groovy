@@ -16,7 +16,6 @@ job('Nginx Job') {
         
         dockerBuildAndPublish {
             repositoryName('1372022/nginx')
-            tag('$BUILD_NUMBER')
             registryCredentials('1372022-dockerhub')
             buildContext('./nginx')
             forceTag(false)
@@ -29,7 +28,7 @@ job('Nginx Job') {
 
 job('Deploy And Validate') {
     scm {
-        github('amir-landau/jenkins-task', 'master')
+        github('amir-landau/jenkins-task', 'main')
     }
     steps {
         shell(readFileFromWorkspace('DeployAndValidate.sh'))
