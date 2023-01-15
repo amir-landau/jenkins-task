@@ -9,7 +9,7 @@ pipelineJob('example-pipeline') {
 
 job('nginx') {
     scm {
-        github('amir-landau/jenkins-task', 'master')
+        github('amir-landau/jenkins-task', 'main')
     }
     steps {
         shell(readFileFromWorkspace('nginx/edit-nginx.sh'))
