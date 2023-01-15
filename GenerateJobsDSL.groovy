@@ -14,6 +14,15 @@ job('nginx') {
     steps {
         shell(readFileFromWorkspace('nginx/edit-nginx.sh'))
 	}
+        dockerBuildAndPublish {
+            repositoryName('1372022/nginx')
+            tag('${BUILD_TIMESTAMP}-${GIT_REVISION,length=7}')
+            registryCredentials('1372022-dockerhub')
+            buildContext('./nginx')
+            forcePull(false)
+            createFingerprints(false)
+            skipDecorate()
+        }        
 }
 
 
