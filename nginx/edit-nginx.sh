@@ -8,6 +8,3 @@ RUN echo 'server { \n \\
 }' > /etc/nginx/conf.d/default.conf
 EOF
 
-docker build -t 1372022/nginx -f nginx/dockerfile .
-docker login -u 1372022 -p dckr_pat_lnjpVpoTSiM1kjoVCdTstLLJhoU
-docker push 1372022/nginx
