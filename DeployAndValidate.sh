@@ -14,4 +14,4 @@ else
 fi
 
 # Cleanup Docker Compose Environment
-docker-compose down --volumes --rmi <all|local> 
+docker-compose down
