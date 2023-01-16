@@ -7,6 +7,7 @@ pipelineJob('App Pipeline') {
     }
 }
 
+
 job('Nginx Job') {
     scm {
         github('amir-landau/jenkins-task', 'main')
@@ -22,7 +23,6 @@ job('Nginx Job') {
             skipDecorate(true)
         }  
 	}
-      
 }
 
 
