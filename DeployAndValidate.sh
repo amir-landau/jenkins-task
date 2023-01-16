@@ -1,7 +1,10 @@
 #!/bin/bash
 
 # Start the nginx and app containers
-docker-compose up -d
+docker-compose --no-ansi up -d
+
+# Separating Output
+printf "\n"
 
 # Check Application Availability
 response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:80/)
@@ -13,5 +16,8 @@ else
     echo "Request Failed"
 fi
 
+# Separating Output
+printf "\n"
+
 # Cleanup Docker Compose Environment
-docker-compose down --rmi all
+docker-compose --no-ansi down --rmi all
